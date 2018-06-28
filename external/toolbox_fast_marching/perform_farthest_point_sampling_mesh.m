@@ -23,13 +23,13 @@ n = size(vertex,2);
 
 L1 = getoptions(options, 'constraint_map', zeros(n,1) + Inf );
 
-if nargin<2 || isempty(points)
+if isempty(points)
     % initialize farthest points at random
     points = round(rand(1,1)*(n-1))+1;
     A = zeros(0,n);
     % replace by farthest point
-    [points,L] = perform_farthest_point_sampling_mesh( vertex,faces, points, A, 1, options );
-    points = points(end);
+    [points,L,A,DD] = perform_farthest_point_sampling_mesh( vertex,faces, points, A, 1, options );
+%     points = points(end);
     nbr_iter = nbr_iter-1;
 else
     % initial distance map
@@ -52,6 +52,13 @@ for i=1:nbr_iter
 
     points = [points,I(1)];
     A = [A;D'];
+    
+%     dd = A(:,points);
+%     dd = [dd;zeros(1,size(dd,2))];
+%     dd = dd + dd';
+%     plot_mesh_with_points(vertex',faces',vertex(:,points)',dd)
+    
+
 end
 if nargout == 4
     DD = A(:,points);
