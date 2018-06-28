@@ -31,6 +31,13 @@ function [N,I,B,r] = random_points_on_mesh(V,F,n,varargin)
   % See also: farthest_points
   %
 
+  if n==1
+      I = randi(size(F,1),1);
+      B = 1/3*ones(1,3);
+      N = B*V(F(I,:),:);
+      r = [];
+      return;
+  end
   % default values
   color = 'white';
   max_iter = 100;

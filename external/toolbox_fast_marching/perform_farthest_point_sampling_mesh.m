@@ -16,6 +16,10 @@ if nargin<3
     nb_iter = 1;
 end
 
+points = [];
+A = [];
+DD = [];
+D = [];
 
 [vertex,faces] = check_face_vertex(vertex,faces);
 
@@ -27,13 +31,9 @@ if isempty(points)
     % initialize farthest points at random
     points = round(rand(1,1)*(n-1))+1;
     A = zeros(0,n);
-    % replace by farthest point
-    [points,L,A,DD] = perform_farthest_point_sampling_mesh( vertex,faces, points, A, 1, options );
-%     points = points(end);
-    nbr_iter = nbr_iter-1;
-else
     % initial distance map
     L = min(zeros(n,1) + Inf, L1);
+    nbr_iter = nbr_iter-1;
 end
 for i=1:nbr_iter
     if nbr_iter>5
@@ -47,7 +47,7 @@ for i=1:nbr_iter
     % remove away data
     D(D==Inf) = 0;
     % compute farhtest points
-    [tmp,I] = max(D(:));
+    [~,I] = max(D(:));
     
 
     points = [points,I(1)];
@@ -60,11 +60,9 @@ for i=1:nbr_iter
     
 
 end
-if nargout == 4
-    DD = A(:,points);
-    DD = [DD;zeros(1,size(DD,2))];
-    DD = DD + DD';
-end
+DD = A(:,points);
+DD = [DD;zeros(1,size(DD,2))];
+DD = DD + DD';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function D = my_eval_distance(vertex,faces,x, options)
 
