@@ -119,9 +119,9 @@ function [N,I,B,r] = random_points_on_mesh(V,F,n,varargin)
       I = I([keep(:);rethrow(:)],:);
       B = B([keep(:);rethrow(:)],:);
       BN = embed(N,I,B);
-      if iter == max_iter
-        warning('Max iteration (%d) reach without convergence',max_iter);
-      end
+%       if iter == max_iter
+%         warning('Max iteration (%d) reach without convergence',max_iter);
+%       end
     end
 
   end

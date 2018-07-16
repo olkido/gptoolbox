@@ -42,7 +42,7 @@ function L = cotmatrix(V,F)
     %L = L-diag(sum(L,2));
     
     % should change code below, so we don't need this transpose
-    if(size(F,1) == 3)
+    if(size(F,1) == 3 && size(F,2) ~= 3)
       warning('F seems to be 3 by #F, it should be #F by 3');
     end
     F = F';

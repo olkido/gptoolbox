@@ -29,6 +29,8 @@ for x=1:size(F,1) % for every face
         end
     end
 end
-
-VV = sparse(i,j,v);
+% olga -- if the mesh contains unreferenced vertices, this sparse call might
+% create matrix of smaller size than the number of input vertices. Fix this
+% for now.
+VV = sparse(i,j,v,size(V,1),size(V,1));
 end
