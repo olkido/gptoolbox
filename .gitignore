@@ -6,6 +6,7 @@ syntax: glob
 *~
 .DS_Store
 *.mexmaci64
+*.mexa64
 *.cache.mat
 quat/*
 quat.zip
